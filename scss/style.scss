@@ -1,0 +1,268 @@
+@import url('reset.css');
+
+@mixin headerStyle($headerWidth: 100%, $headerHeight: 100vh, $headColor: white, $headLineHeigh: 3rem, $headPosit: relative){
+    width: $headerWidth;
+    height: $headerHeight;
+    color: $headColor;
+    line-height: 3rem;
+    position: relative;
+}
+
+@mixin headerCover($coverWidth:100%, $coverHeight: 100%, $coverBgc: rgba(36, 32, 32, 0.7), $coverPosition: absolute, $coverTop:0, $coverLeft:0, $coverZind: 1, $coverOverflo: hidden){
+    width: $coverWidth;
+    height: $coverHeight; /*wysokość rodzica*/
+    background-color: $coverBgc;
+    position: $coverPosition;
+    top: $coverTop;
+    left: $coverLeft;
+    z-index: $coverZind;
+    overflow: $coverOverflo;
+}
+
+@mixin headerH1($h1position: absolute, $h1width: 100%, $h1text: center, $h1trans: uppercase, $h1Zin:2){
+    position: $h1position;
+    width: $h1width;
+    text-align: $h1text;
+    text-transform: $h1trans;
+    z-index: $h1Zin;
+}
+
+$width: 43px;
+$height: 42px;
+$mediaClass: '.sprites_media';
+$img: '../img/sprites_spolecznosciowe.png';
+@mixin Spri($bg:$img, $spriWidth: $width, $spriHeight: $height, $spriOver: hidden, $spriDisplay: inline-block, $spriFloat: right){
+    background: url('#{$img}');
+        width: $spriWidth;
+        height: $spriHeight;
+        overflow: $spriOver;
+        display: $spriDisplay;
+        float: $spriFloat;
+}
+
+$class: 'div';
+@mixin mix_sprites($selector:$class, $position: 52px){
+    @for $i from 1 to 5{
+        #{$selector}:nth-of-type(#{$i}){
+            background-position:((($i)*$position)-52px)*(-1) -1px;
+            transition: all 0.5s linear;
+        }
+        #{$selector}:nth-of-type(#{$i}):hover{
+            background-position: ((($i)*$position)-52px)*(-1) -43px;
+        }
+    }
+}
+$class: 'div';
+@mixin mix_sprites_nohover($selector:$class, $position: 52px){
+    @for $i from 1 to 5{
+        #{$selector}:nth-of-type(#{$i}){
+            background-position:((($i)*$position)-52px)*(-1) -1px;
+            transition: all 0.5s linear;
+        }
+    }
+}
+
+
+html {
+    font-size: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+}
+body {
+   font-size: 1.4rem;
+}
+a {
+    color: inherit;
+    text-decoration: none;
+}
+footer{
+    width: 100%;
+    height: 70px;
+    background-color: white;
+    padding: 10px;
+}
+/*media quer*/
+@media only screen and (max-width:516px) {
+    header {
+        @include headerStyle($headerHeight:25vh);
+        background: red url('../img/img.jpeg') center/cover no-repeat;
+    }
+#przeslona {
+    @include headerCover();
+}
+
+        
+    header h1 {
+        @include headerH1();
+        line-height: 25vh;
+        font-size: 2.2rem;
+        letter-spacing: 1.4rem;
+        color: white;
+    }
+    
+    header p {
+        display: none;
+    }
+    
+    header .przycisk {
+        display: none;
+    }
+    
+    nav {
+    position:relative;
+        ul{
+            background-color: orangered;
+            li{
+                width:100%;
+                height: 40px;
+                text-align: center;
+                border-bottom: 2px solid white;
+                line-height: 40px;
+                a{
+                    color:#fff;
+                    padding: 2rem;
+                }
+            }
+        }
+}
+    .container {
+        width: 97%;
+    }
+    section{
+        margin-top: 4rem; 
+        min-height: 400px;
+        padding: 2rem;
+    }
+
+    section h2{
+        font-size: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    section p{
+        line-height: 2rem;
+        text-align: justify;
+    }
+
+    section:nth-of-type(even){
+        background: url('../img/img2.jpg')center/cover no-repeat;
+        background-attachment: fixed;
+        color: white;
+    }
+    .sprites_media{
+         @include Spri();
+    }
+    @include mix_sprites_nohover();
+}
+/////////////////////////////
+//////////////media - desctop
+
+@media only screen and (min-width:517px){
+
+
+header {
+    @include headerStyle();
+    background: red url('../img/img.jpeg') center/cover no-repeat;
+}
+#przeslona {
+    @include headerCover();
+}
+
+header h1, header p, header .przycisk {
+@include headerH1($h1trans: none);
+    word-spacing: 0.4rem;
+    letter-spacing: 0.3rem;
+}
+
+header h1 {
+    top: 25%;
+    font-size: 4rem;
+    text-transform: uppercase;
+    letter-spacing: 2.6rem;
+}
+
+header p {
+    top: 40%;
+    font-size: 2rem;
+    line-height: 3.5rem;
+}
+
+header .przycisk {
+    display: block;
+    top: 70%;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: 260px;
+    border: 1px solid #fff;
+    border-radius: 4px;
+    padding: 1.5rem;
+    font-size: 1.8rem;
+    box-shadow: 0 0 15px 2.5px #fff;
+    transition: all 0.5s ease;
+    background-color: orangered;
+}
+
+header .przycisk:hover {
+    box-shadow: 0 0 10px #fff;
+}
+
+nav {
+    overflow: hidden;
+    position: sticky;
+    top: 0;
+    left: 0;
+}
+
+nav ul li a {
+    display: block;
+    float: left;
+    width: 25%;
+    text-align: center;
+    padding: 2rem;
+    font-size: 1.5rem;
+    background-color: orangered;
+    color: #fff;
+    border-bottom: 2px solid transparent;
+    transition: all 1s ease;
+}
+
+nav ul li a:hover{
+    border-bottom: 2px solid #132b58;
+}
+
+section{
+    margin-top: 4rem;
+    min-height: 400px;
+    padding: 2rem;
+}
+
+section h2{
+    font-size: 2.5rem;
+    margin-bottom: 2.5rem;
+}
+
+section p{
+    line-height: 4rem;
+    font-size: 1.6rem;
+}
+
+section:nth-of-type(even){
+    background: url('../img/img2.jpg')center/cover no-repeat;
+    background-attachment: fixed;
+    color: white;
+}
+
+.container{
+    width: 80%;
+    margin: 0 auto;
+}
+.sprites_media{
+    @include Spri();
+}
+@include mix_sprites();
+}
+
